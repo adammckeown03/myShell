@@ -9,7 +9,6 @@ I, Adam McKeown, acknowledge all of DCU's Academic Integrity Policies.
 
 #include <stdbool.h>
 
-/* Function prototypes */
 time_t getTime();
 void welcome();
 void prompt();

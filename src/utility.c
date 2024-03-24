@@ -9,7 +9,7 @@ I, Adam McKeown, acknowledge all of DCU's Academic Integrity Policies.
 #include <unistd.h>
 #include <string.h>
 #include <sys/wait.h>
-#include <sys/types.h> // Include this header for pid_t
+#include <sys/types.h>
 #include <time.h>
 #include <stdbool.h>
 #include "commands.h"
@@ -23,6 +23,7 @@ time_t getTime() {
 }
 
 void welcome() {
+    // Display welcome message with information and system time
     printf("+---------------------------------------+\n");
     printf("|                                       |\n");
     printf("|                MyShell                |\n");
@@ -34,6 +35,7 @@ void welcome() {
 
     char* username = getenv("USER");
 
+ // https://stackoverflow.com/questions/5141960/get-the-current-time-in-c
     time_t t = getTime();
     struct tm *tm_info = localtime(&t);
     printf("\n\nSystem time:    %02d:%02d:%02d", tm_info->tm_hour, tm_info->tm_min, tm_info->tm_sec);
@@ -41,10 +43,11 @@ void welcome() {
     printf("\nUse \"help\" to access the shell manual.");
     printf("\n\n");
 
-    sleep(1);
+    sleep(1); // Pause for readability
 }
 
 void prompt() {
+    // Display the command prompt with username, system name, time, and current directory
     char cwd[MAX_BUFFER];
     char* name = getenv("NAME");
     char* username = getenv("USER");
@@ -55,6 +58,7 @@ void prompt() {
 }
 
 char **splitline(char *input) {
+    // Split input string into tokens based on whitespace separators
     char *token;
     char **tokens = malloc(MAX_BUFFER * sizeof(char *));
     int i = 0;
@@ -83,17 +87,14 @@ char **splitline(char *input) {
 
 int hasampersand(char *args[])
 {
+    // Check if the last argument is "&", indicating background execution
     int count = 0;
-    for (int i = 1; args[i] != NULL; ++i)   // loops through all argument inputs until end is reached
-    {
-        ++count;                            // until the input reaches the end increment count
+    for (int i = 1; args[i] != NULL; ++i) {
+        ++count;
     }
-    if (!strcmp(args[count], "&"))          // if the last input is an ampersand then
-    {
+    if (!strcmp(args[count], "&")) {
     	return true;
-    }
-    else
-    {
+    } else {
         return false;
     }
 }
@@ -102,6 +103,7 @@ int hasampersand(char *args[])
 #include <fcntl.h>
 
 int backgroundexecute(char **args) {
+    // Execute commands in the background
     pid_t pid = fork(); // creates a child process
     if (pid == 0) {
         // Redirect standard output to /dev/null

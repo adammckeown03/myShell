@@ -9,7 +9,7 @@ I, Adam McKeown, acknowledge all of DCU's Academic Integrity Policies.
 #include <string.h>
 #include <unistd.h>
 #include <sys/wait.h>
-#include <sys/types.h> // Include for pid_t type
+#include <sys/types.h>
 #include <fcntl.h>
 #include "commands.h"
 #include "utility.h"
@@ -73,7 +73,7 @@ void echo(char *message) {
 }
 
 int help() {
-    system("cat ../theshell/manual/readme.md"); // Replace "/path/to/your/helpfile/readme.md" with the absolute path to your help file
+    system("cat ../manual/readme.md");
     return 0;
 }
 
@@ -108,6 +108,7 @@ void execute(char **args) {
         }
     }
 
+//  https://stackoverflow.com/questions/53256436/difference-of-pid-t-and-int-in-c
     pid_t pid;
     int status;
 
@@ -136,12 +137,14 @@ void execute(char **args) {
             }
         }
 
+    //  https://stackoverflow.com/questions/13494787/calling-ls-with-execve
         if (execvp(args[0], args) == -1) {
             perror("Execution failed");
             exit(EXIT_FAILURE);
         }
     } else {
         // Parent process
+    //  https://linux.die.net/man/2/waitpid
         waitpid(pid, &status, 0);
     }
 }
