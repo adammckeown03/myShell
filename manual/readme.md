@@ -47,6 +47,20 @@ Process Execution
     MyShell allows both foreground and background command execution. Background commands can be 
     executed by appending `&` to the command.
 
+Difference between background and foreground execution:
+
+    Foreground  -
+        These are processes which require the user to run or interact 
+        with. An example would be this readme file, depending on the 
+        text editor used to display this, you could say that the 
+        editor is the process/application that the user is running. 
+
+    Background -
+        Processes that are run in the back or independently of the user 
+        are known as background processes. A example of a background 
+        process could be a music player that you could have playing while 
+        writing or doing work on a foreground process.
+
 References
     - G. Healy, "Lab04/05: Building a Shell". Available at: https://loop.dcu.ie/mod/book/view.php?id=2322719&chapterid=492179 [Acessed: 15-Mar-2024]
     - W. Joy, "An introduction to the C shell". Available at: https://docs-archive.freebsd.org/44doc/usd/04.csh/paper.html [Accessed: 15-Mar-2024]
